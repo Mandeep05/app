@@ -1,0 +1,26 @@
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+ 
+<p>
+  <strong>Text:</strong>
+  <%= @post.text %>
+</p>
+
+<%# debugger %>
+<% if !@post.comments.empty? && !@comment.id.nil? %>
+	<%# debugger %>
+  <h2>Comments</h2>
+	<%= render @comments %>
+<% end %>
+
+<% if !@user.nil? %>
+	<h2>Add a comment:</h2>
+	<%= render "comments/form" %><br>
+  <%= link_to 'Edit Post', edit_user_post_path(@user.id,@post) %>
+<% end %>
+
+ 
+
+<%= link_to 'Back to Posts',  root_url %>

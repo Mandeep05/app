@@ -1,0 +1,15 @@
+<p>
+  <strong>Commenter:</strong>
+  <%= comment.commenter %>
+</p>
+ 
+<p>
+  <strong>Comment:</strong>
+  <%= comment.body %>
+</p>
+<% if !current_user.nil? %>
+	<p><%= link_to 'Destroy Comment', user_post_comment_path(@user.id,@post.id,@comment.id),method: :delete,data: { confirm: 'Are you sure?' } %>
+	</p>
+<else>
+	<p><%= link_to 'Destroy Comment', log_in_path %></p>
+<% end %>

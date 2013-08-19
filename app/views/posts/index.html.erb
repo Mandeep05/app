@@ -1,0 +1,35 @@
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+  <% @post.each do |p| %>
+    <tr>
+      <td><%= p.title %></td>
+      <td><%= p.text %></td>
+      
+      <td><%= link_to 'Show', post_path(p.id) %></td>
+
+      <% if !@user.nil? %>
+        
+        <td><%= link_to 'Edit', edit_user_post_path(@user.id,p.id) %></td>
+        <td><%= link_to 'Destroy',user_post_path(@user.id,p.id) , method: :delete, data: { confirm: 'Are you sure?' } %></td> 
+      <% else %>
+        <td><%= link_to 'Edit', log_in_path, data: {:notice => "Please log in first"} %></td>
+        <td><%= link_to 'Destroy', log_in_path, data: {:notice => "Please log in first"} %></td>
+      <% end %>
+    </tr>
+
+  <% end %>
+</table>
+
+<br />
+<% if !@user.nil? %>
+  <%= link_to 'New Post', new_user_post_path(@user.id) %>
+<% end %>
