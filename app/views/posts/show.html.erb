@@ -9,10 +9,9 @@
 </p>
 
 <%# debugger %>
-<% if !@post.comments.empty? && !@comment.id.nil? %>
-	<%# debugger %>
-  <h2>Comments</h2>
-	<%= render @comments %>
+<% if !@post.comments.empty? %>
+	<h2>Comments</h2>
+	<%= render "comments/comment" %>
 <% end %>
 
 <% if !@user.nil? %>

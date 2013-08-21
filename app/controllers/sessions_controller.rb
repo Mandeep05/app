@@ -8,7 +8,11 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate(params[:email], params[:password])
-    if user
+    #debugger
+    if user && User.is_not_active(user.active)
+      flash.now.alert ="Please validate your account"
+      render "new"
+    elsif user
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else

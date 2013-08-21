@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  #before_filter :not_logged_in, :except => :show, :index
+  before_filter :not_logged_in, :except => [:show, :index]
+  before_filter :not_allowed, :only => [:edit, :update, :destroy] 
   def new
     @user = current_user
     @post = Post.new()
@@ -18,7 +19,6 @@ class PostsController < ApplicationController
     @user = current_user
     @post = Post.find(params[:id])
     @comment = @post.comments.new
-    @comments = Post.find(params[:id]).comments
   end
 
   def index
@@ -27,6 +27,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    #debugger
     @user = current_user
     @post = Post.find(params[:id])
   end

@@ -21,10 +21,20 @@ class User < ActiveRecord::Base
   
   def self.authenticate(email, password)
     user = find_by_email(email)
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt) && user.active == true
+    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt) 
       user
     else
       nil
+    end
+  end
+
+  def self.is_not_active(active)
+    if active.nil?
+      true
+    elsif active == false
+      true
+    else
+      false
     end
   end
   
@@ -41,11 +51,6 @@ class User < ActiveRecord::Base
     save!
     UserMailer.password_reset(self).deliver
   end
-
-  # def self.send_activation
-    # generate_token(:signup_token)
-  #   UserMailer.activation(self).deliver
-  # end
 
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?

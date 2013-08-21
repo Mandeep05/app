@@ -1,7 +1,9 @@
 <%= form_for([@user,@post,@comment]) do |f| %>
   <p>
-    <%= @user.email %>
+    <%= f.label :commenter, "User Name" %><br/>
+    <%= f.text_field :commenter, :value => @user.email, :readonly => true %>
   </p>
+  
   <p>
     <%= f.label :body %><br />
     <%= f.text_area :body %>

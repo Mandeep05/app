@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 	before_filter :not_logged_out, :except => :show
 
-  	def new
-  		@user = User.new
-  	end
+  def new
+  	@user = User.new
+  end
 
 	def create
 		@user = User.new(params[:user])
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 			UserMailer.activation(@user).deliver
 		  redirect_to log_in_url, :notice => "Signed up! Email has been send to your id"
 		else
-		    render "new"
+		  render "new"
 		end
 	end
 
@@ -21,8 +21,8 @@ class UsersController < ApplicationController
 	end
 
 	def activate
-	    @user = User.find_by_signup_token(params[:token])
-	    @user.update_attribute(:active, true)
-	    redirect_to log_in_path, success: "Your account is now activated."
-  	end
+	  @user = User.find_by_signup_token(params[:token])
+	  @user.update_attribute(:active, true)
+	  redirect_to log_in_path, notice: "Your account is now activated."
+  end
 end

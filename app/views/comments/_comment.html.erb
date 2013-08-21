@@ -1,15 +1,18 @@
-<p>
-  <strong>Commenter:</strong>
-  <%= comment.commenter %>
-</p>
- 
-<p>
-  <strong>Comment:</strong>
-  <%= comment.body %>
-</p>
-<% if !current_user.nil? %>
-	<p><%= link_to 'Destroy Comment', user_post_comment_path(@user.id,@post.id,@comment.id),method: :delete,data: { confirm: 'Are you sure?' } %>
-	</p>
-<else>
-	<p><%= link_to 'Destroy Comment', log_in_path %></p>
-<% end %>
+<table>
+  <%# debugger %>
+  <% @post.comments.each do |p| %>
+    <% unless p.id.nil? %>
+      <tr><td>user:<td></td></tr>
+      <tr><td><%= p.commenter %></td></tr>
+      <tr><td>comment:</td></tr>
+      <tr>
+        <td><%= p.body %></td>
+        <% if !@user.nil? %>
+            <td><%= link_to 'Destroy Comment',user_post_comment_path(@user.id,@post.id,p.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <td><%= link_to 'Destroy', log_in_path, data: {:alert => "Please log in first"} %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

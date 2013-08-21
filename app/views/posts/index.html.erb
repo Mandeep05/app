@@ -19,6 +19,7 @@
       <% if !@user.nil? %>
         
         <td><%= link_to 'Edit', edit_user_post_path(@user.id,p.id) %></td>
+        
         <td><%= link_to 'Destroy',user_post_path(@user.id,p.id) , method: :delete, data: { confirm: 'Are you sure?' } %></td> 
       <% else %>
         <td><%= link_to 'Edit', log_in_path, data: {:notice => "Please log in first"} %></td>
